@@ -1,0 +1,32 @@
+ {
+    "name": "Schedule N Record",
+    "version": "1.0",
+    "description": "Automatically record your lectures in background by scheduling them earlier.",
+    "background": {
+      "scripts": ["scripts/background.js"],
+      "persistent": false
+    },
+
+    "permissions": ["activeTab",  "declarativeContent", "storage"],
+
+    "options_page": "ui/options.html",
+
+    "page_action": {
+      "default_popup": "ui/popup.html", 
+      // Icons for the extension in toolbar
+      "default_icon": {
+        "16": "resources/icons/get_started16.png",
+        "32": "resources/icons/get_started32.png",
+        "48": "resources/icons/get_started48.png",
+        "128": "resources/icons/get_started128.png"
+      }
+    },
+    // Icons for the extension management page
+    "icons": {
+        "16": "resources/icons/get_started16.png",
+        "32": "resources/icons/get_started32.png",
+        "48": "resources/icons/get_started48.png",
+        "128": "resources/icons/get_started128.png"
+      },
+    "manifest_version": 2
+  }
