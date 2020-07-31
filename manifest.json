@@ -20,6 +20,8 @@
 	      "https://www.googleapis.com/auth/calendar"
 	    ]
   	},
+	"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+
 
     "page_action": {
       "default_popup": "ui/popup.html", 

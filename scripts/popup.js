@@ -3,3 +3,7 @@
 //   // Use the token.
 //   console.log(token)
 // });
+
+$(document).ready(function(){
+  $("#container").load("./addAlarm.html"); 
+});
