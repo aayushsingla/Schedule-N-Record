@@ -1,15 +1,25 @@
- {
+{
     "name": "Schedule N Record",
     "version": "1.0",
-    "description": "Automatically record your lectures in background by scheduling them earlier.",
+    "description": "Automatically record your lectures/Video Meetings in background by scheduling them earlier.",
     "background": {
-      "scripts": ["scripts/background.js"],
+      "scripts": 
+	      ["scripts/background.js"],
       "persistent": false
     },
+	"key": "ilgignghhcgebfajnfpikhmjdmmjbbkm",
 
-    "permissions": ["activeTab",  "declarativeContent", "storage"],
+
+    "permissions": ["activeTab",  "declarativeContent", "storage",  "identity", "alarms"],
 
     "options_page": "ui/options.html",
+     
+     "oauth2": {
+	    "client_id": "786432158198-di1jldm66c6m2vnavmk8gt1ihoa9m09e.apps.googleusercontent.com",
+	    "scopes": [
+	      "https://www.googleapis.com/auth/calendar"
+	    ]
+  	},
 
     "page_action": {
       "default_popup": "ui/popup.html", 
@@ -21,6 +31,7 @@
         "128": "resources/icons/get_started128.png"
       }
     },
+ 
     // Icons for the extension management page
     "icons": {
         "16": "resources/icons/get_started16.png",
@@ -29,4 +40,4 @@
         "128": "resources/icons/get_started128.png"
       },
     "manifest_version": 2
-  }
+ }
