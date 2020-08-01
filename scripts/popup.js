@@ -5,5 +5,16 @@
 // });
 
 $(document).ready(function(){
-  $("#container").load("./addAlarm.html"); 
+
+  $("#container").load("./addAlarm.html", function(){
+  	console.log("Add Alarm Loaded");
+  	loadAddAlarm();
+  }); 
 });
+
+
+
+
+
+  
+

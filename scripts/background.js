@@ -1,8 +1,6 @@
- 
 
 //called when extnsion is fully loaded in browser
 
-  	
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     chrome.storage.sync.set({color: '#3aa757'}, function() {
     	console.log('The color is green.');
@@ -28,3 +26,10 @@ chrome.alarms.onAlarm.addListener(function( alarm ) {
   // the alarm type
 
 });
+
+
+
+/*
+	<TODO:>
+	Don't forget to cancel all alarms when storage is cleared or extension is uninstalled
+*/

@@ -3,24 +3,29 @@
     <head>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-      <style>
-        #container {
-          min-height:480px;
-          min-width:320px;
-          height: 40%;
-          width: 30%;
-          outline: 1px;
-        }
+      <link rel="stylesheet" href="./css/popup.css"> </style> 
       </style>
     </head>
     <body>
+
+      <div id="nav">
+
+     
+     </div>
+
+     <div id="DatePicker" style="{visibility: hidden;}">
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date">
+     
+     </div>
+
       <div id="container">
-      
         
       </div>
 
       <script src="../scripts/popup.js"></script>
-    
+      <script src="../scripts/alarm.js"></script>
+      <script src="../scripts/utils.js"></script>
     </body>
   </html>   

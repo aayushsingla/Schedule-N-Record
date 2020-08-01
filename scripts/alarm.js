@@ -23,8 +23,3 @@
  function cancelAlarm(alarmName) {
    chrome.alarms.clear(alarmName);
  }
-
-
-
-$$('#toggleAlarm').addEventListener('click', doToggleAlarm);
-checkAlarm();

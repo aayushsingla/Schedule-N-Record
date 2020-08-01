@@ -7,6 +7,11 @@
       <div id = "mainDiv">
 
         <p>Add an alarm</p>
+
+        <label for="url">url:</label>
+        <input type="url" id="url" name="url">
+        <br/>
+        
         <label for="start">Start time:</label>
 
         <input type="time" id="start" name="record-start">
@@ -14,11 +19,24 @@
 
         <input type="time" id="end" name="record-end">
 
+        <label for="cars">Select type</label>
 
-      <table cellspacing="0" rules="all" border="0" id="checkbox-table" style="border-collapse: collapse;">
+        <select id="alarmType">
+          <option value="once" selected="selected">Schedule Once</option>
+          <option value="weekly">Schedule Weekly</option>
+        </select>
+
+        <div id="AddAlarmDatePicker">
+
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date">
+       
+        </div>
+
+      <table cellspacing="0" rules="all" border="0" id="checkbox-table" style="border-collapse: collapse; display: none;">
         <tr>
             <td>M</td>
-            <td><input type="checkbox"/></td>
+            <td ><input type="checkbox"/></td>
             <td>T</td>
             <td><input type="checkbox"/></td>
             <td>W</td>
@@ -35,7 +53,13 @@
         
       </table>
 
-      <button>Set Alarm</button>
+
+      <label for="destination">File Destination: "Schedule-N-write/"</label>
+        <input type="text" id="destination" name="destination">
+        <br/>
+
+
+      <button id="addAlarmButton">Set Alarm</button>
       </div>
     </body>
   </html>   
