@@ -15,11 +15,11 @@
         <label for="start">Start time:</label>
 
         <input type="time" id="start" name="record-start">
-        <label for="start">End Time:</label>
+        <label for="end">End Time:</label>
 
         <input type="time" id="end" name="record-end">
 
-        <label for="cars">Select type</label>
+        <label for="alarmType">Select type</label>
 
         <select id="alarmType">
           <option value="once" selected="selected">Schedule Once</option>
@@ -28,13 +28,15 @@
 
         <div id="AddAlarmDatePicker">
 
-          <label for="date">Date:</label>
-          <input type="date" id="date" name="date">
+          <label for="dateSchedule">Date:</label>
+          <input type="date" id="dateSchedule">
        
         </div>
 
       <table cellspacing="0" rules="all" border="0" id="checkbox-table" style="border-collapse: collapse; display: none;">
         <tr>
+            <td>S</td>
+            <td><input type="checkbox"/></td>
             <td>M</td>
             <td ><input type="checkbox"/></td>
             <td>T</td>
@@ -47,8 +49,7 @@
             <td><input type="checkbox"/></td>
             <td>S</td>
             <td><input type="checkbox"/></td>
-            <td>S</td>
-            <td><input type="checkbox"/></td>
+           
           </tr>
         
       </table>

@@ -1,7 +1,52 @@
+*{
+  font-family: 'Helvetica';
+  color: #F14475 ;
+  font-size: 16px;
+  background-color: transparent;
+  /* second-color: #232526*/
+}
+
+@font-face {
+ font-family: 'Montserrat';
+ src: url(‘chrome-extension://__MSG_@@extension_id__/resources/fonts/Montserrat-Regular.ttf’); 
+}
+
+@font-face {
+ font-family: 'Helvetica';
+ src: url(‘chrome-extension://__MSG_@@extension_id__/resources/fonts/Helvetica.ttf’); 
+}
+
+html,body {
+  background: #070D1F;
+  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; 
+}
+
+#main_inner{
+  background: #181D2E ;
+  min-height:480px;
+  min-width:340px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#main_inner > div{
+  margin: 5px;
+}
+
+
+/*F14475   5781CC*/
+#AppName{
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFFFFF;
+  color: #F14475 ;
+  text-align: center;
+}
+
 #nav {
   height: 45px;
   width: 100%;
-  background-color: black;
 }
 
 #datePicker {
@@ -11,8 +56,10 @@
 }
 
 #container {
-  min-height:480px;
-  min-width:320px;
-  height: 40%;
-  width: 30%;
 }
+
+#warningBox{
+  font-weight: 600;
+}
+
+

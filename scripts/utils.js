@@ -1,7 +1,9 @@
 
 function loadAddAlarm(){
+
 	var addAlarmbutton = document.getElementById("addAlarmButton");
 	addAlarmbutton.addEventListener("click", createCustomAlarm);
+
 	
 	$( "#alarmType" ).change(function() {
 		var selectedItem = $('#alarmType').find(":selected").val();
@@ -21,8 +23,7 @@ function loadAddAlarm(){
 
 function createCustomAlarm(){
 //	var x = document.getElementById("myCheck").checked;
-	var days = getDaysForAlarm();
-	console.log(days);
+	$("#warningBox").text(""); 
 	var startTime=$("#start").val();
 	console.log(startTime);
 	var endTime=$("#end").val();
@@ -30,22 +31,67 @@ function createCustomAlarm(){
 	var url=$("#url").val();
 	console.log(url);
 	var destinationFile = $("#destination").val();
-	console.log(destination);
+	console.log(destinationFile);
 
 	var type = $('#alarmType').find(":selected").val();
 	console.log(type);
-
+	var name = Date.now();
+	console.log("id "+ name);
 	var purpose = "start";
+	var source = "custom";
+		
+	if(type == "once"){
+		var date = $('#dateSchedule').datepicker({ dateFormat: 'dd,MM,yyyy' }).val();	
+		console.log("Date: " + date);
+	
+		//setting alarm to start recording 
 
-	calculateDelay(startTime);
 
-	//createAlarm(alarmName, delayInMinutes);
-	var jsonobject = getJSONAlarm(name,startTime,endTime,url,destinationFile, type, purpose);
-	console.log(jsonobject)
- 	chrome.storage.sync.set(jsonobject, function() {
-    	console.log('Alarm is set to ' + JSON.stringify(jsonobject));
-    });
+		var jsonobject = getJSONAlarm(name,startTime,endTime,url,destinationFile,date ,type, purpose);
+		if(jsonobject != null){
+			var delayInMinutes = calculateDelay(startTime, date);
+			console.log("minutes delay: "+ delayInMinutes);
 
+		 	chrome.storage.sync.set(jsonobject, function() {
+		    	
+		    	console.log('Storage set to' + JSON.stringify(jsonobject));
+				createAlarm(name, delayInMinutes);
+				$("#warningBox").text("Alarm Created!"); 
+
+		    });
+			
+		} else{
+			
+			$("#warningBox").text($("#warningBox").text() + "\n" + "Schedule not created.") 
+			return;
+		}
+
+	}else{
+
+		// var day = (new Date()).getDay();
+		// var days = getDaysForAlarm();
+		// console.log(days);
+		// var jsonobject = getJSONAlarm(name,startTime,endTime,url,destinationFile,date ,type, purpose);
+		// if(jsonobject != null){
+		// 	var delayInMinutes = calculateDelay(startTime, date);
+		// 	console.log("minutes delay: "+ delayInMinutes);
+
+		//  	chrome.storage.sync.set(jsonobject, function() {
+		    	
+		//     	console.log('Storage set to' + JSON.stringify(jsonobject));
+		// 		createAlarm(name, delayInMinutes);
+		// 		$("#warningBox").text("Alarm Created!"); 
+
+		//     });
+		
+
+
+	}
+			
+	
+	
+
+	
 }
 
 
@@ -62,8 +108,6 @@ function getDaysForAlarm(){
     	selecteditems.push(value);
     	if(value == true)
     		isOneMarked = value;
-		console.log(isOneMarked)	
-
 	});
 
 	if(!isOneMarked){
@@ -72,29 +116,81 @@ function getDaysForAlarm(){
 	return selecteditems;
 }
 
-function getJSONAlarm(name,startTime,endTime,url,destinationFile, type,purpose){
-	obj = {
-		"alarms":{
-			"name":name,
-			"startTime": startTime,
-			 "endTime":endTime,
-			 "url":url,
-			 "destinationFile": destinationFile,
-			 "type": type,
-			 "purpose": purpose
+function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purpose){
+	var areParametersCorrect = true;  	
+	// var today = new Date();
+	// var hour = today.getHours();
+	// var minute =today.getMinutes();
+	// var day = today.getDay();
+
+	if(!url.includes("meet.google.com")){
+		if(areParametersCorrect == true)
+			areParametersCorrect = false;
+
+		$("#warningBox").text($("#warningBox").text() + "\n" + "provided url is not a google meet url."); 
+		console.log("URL provided is not a google meet url");
+	}
+
+
+	/* {TODO::}
+
+	A check for destination exits needs to be added here. */
+
+	if(type == null || purpose == null){
+		console.log("Type or purpose not provided");
+		return null;
+	}
+
+ 	if(type == "once"){
+		/* 	[TODO:]
+			check if Date, startTime are in future 			
+		*/
+		var minutes = calculateDelay(startTime, date);
+		console.log("minutes: "+ minutes);
+		if(minutes < 1){
+			$("#warningBox").text($("#warningBox").text() + "\n" + "Start Time is Invalid"); 
+			console.log("Start Time is Invalid");
+
+			return null;
 		}
 	}
+
+	if(areParametersCorrect){
+		obj = {    
+			[name]:{
+				"name":name,
+				"startTime": startTime,
+				 "endTime":endTime,
+				 "url":url,
+				 "destinationFile": destinationFile,
+				 "type": type,
+				 "date":date,
+				 "delay": minutes,
+				 "purpose": purpose
+				}
+			}
+	} else {
+		obj = null;
+	}
+
 	return obj;
 };
 
 
-function calculateDelay(alarmTime){
-	var today = new Date();
-	var hour = today.getHours();
-	var minute =today.getMinutes();
+function calculateDelay(alarmTime, date){
+
 	var alarmTime = alarmTime.split(":");
-	console.log(alarmTime)
+	date = date.split("-");
+	console.log(date);
+	
+	
+	var today = new Date();
+	console.log(today.toString());
+	var end = new Date(date[0], date[1]-1, date[2], alarmTime[0], alarmTime[1], 0,0)
+	console.log(end.toString());
 
+	var minutes =  Math.round((end - today)/60000); // minutes
 
+	return minutes;	
 }
 

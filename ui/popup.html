@@ -3,27 +3,36 @@
     <head>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
       <link rel="stylesheet" href="./css/popup.css"> </style> 
       </style>
     </head>
     <body>
-
-      <div id="nav">
-
-     
-     </div>
-
-     <div id="DatePicker" style="{visibility: hidden;}">
-
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date">
-     
-     </div>
-
-      <div id="container">
+      <div id="main">
+        <h1 id="AppName">Schedule N Record</h1>
         
-      </div>
 
+       <div  id= "main_inner">
+         <div id="nav">
+          
+         </div> 
+         <div id="DatePicker" style="{visibility: hidden;}">
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+         
+         </div>
+
+          <div id="container">
+            
+          </div>
+
+          <p id="warningBox">
+            
+          </p>
+         </div>
+
+      </div>
       <script src="../scripts/popup.js"></script>
       <script src="../scripts/alarm.js"></script>
       <script src="../scripts/utils.js"></script>

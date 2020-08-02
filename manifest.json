@@ -33,6 +33,9 @@
         "128": "resources/icons/get_started128.png"
       }
     },
+    "web_accessible_resources": [
+ 		"resources/fonts/*.*"
+	],
  
     // Icons for the extension management page
     "icons": {
