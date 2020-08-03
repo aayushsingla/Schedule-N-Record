@@ -6,6 +6,7 @@
   /* second-color: #232526*/
 }
 
+
 @font-face {
  font-family: 'Montserrat';
  src: url(‘chrome-extension://__MSG_@@extension_id__/resources/fonts/Montserrat-Regular.ttf’); 
@@ -17,49 +18,95 @@
 }
 
 html,body {
+
   background: #070D1F;
   border-radius: 5px;
   border-top-left-radius: 5px;
-  border-top-right-radius: 5px; 
+  border-top-right-radius: 5px;
+}
+
+#main{
+  text-align: center; 
 }
 
 #main_inner{
+  overflow-y: scroll;
   background: #181D2E ;
-  min-height:480px;
+  height:480px;
   min-width:340px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#main_inner > div{
-  margin: 5px;
+#main_inner::-webkit-scrollbar {
+  display: none;
 }
-
 
 /*F14475   5781CC*/
 #AppName{
   font-size: 24px;
   font-weight: 800;
-  color: #FFFFFF;
+  display: inline-block;
   color: #F14475 ;
-  text-align: center;
 }
 
 #nav {
   height: 45px;
-  width: 100%;
+  display: block;
 }
 
-#datePicker {
+#DatePicker {
+  display: inline-block;
+  width: 65%;
+  float: left;
   height: 25px;
-  width: 100%;
-  margin: 10px;
+  position: relative;
+  margin-left:10px;
+  margin-top: 15px;
+  text-align: center;
+
 }
+#date{
+  border: 0 !important; 
+  padding:0 !important; 
+  }
 
 #container {
 }
 
 #warningBox{
-  font-weight: 600;
+  margin: 10px;
+  font-weight: 400;
 }
 
+.fa {
+  font-size: 21px !important;
+}
 
+.fa-refresh{
+  padding: 15px;
+  float: left;
+}
+
+.fa-calendar-plus-o{
+  padding: 15px;
+  float: right;
+}
+
+.fa-home{
+  padding: 10px;
+  float: right;
+}
+
+.fa-google-plus{
+  margin-bottom:15px;
+  margin-left:15px;
+}
+
+#Developed{
+  position: relative;
+}
+
+a, #Developed > *{
+  text-align: center;
+  font-size: 10px;
+}

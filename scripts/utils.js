@@ -23,7 +23,7 @@ function loadAddAlarm(){
 
 function createCustomAlarm(){
 //	var x = document.getElementById("myCheck").checked;
-	$("#warningBox").text(""); 
+	$("#warning").text(""); 
 	var startTime=$("#start").val();
 	console.log(startTime);
 	var endTime=$("#end").val();
@@ -56,13 +56,13 @@ function createCustomAlarm(){
 		    	
 		    	console.log('Storage set to' + JSON.stringify(jsonobject));
 				createAlarm(name, delayInMinutes);
-				$("#warningBox").text("Alarm Created!"); 
+				$("#warning").text("Alarm Created!"); 
 
 		    });
 			
 		} else{
 			
-			$("#warningBox").text($("#warningBox").text() + "\n" + "Schedule not created.") 
+			$("#warning").text($("#warning").text() + "\n" + "Schedule not created.") 
 			return;
 		}
 
@@ -80,18 +80,13 @@ function createCustomAlarm(){
 		    	
 		//     	console.log('Storage set to' + JSON.stringify(jsonobject));
 		// 		createAlarm(name, delayInMinutes);
-		// 		$("#warningBox").text("Alarm Created!"); 
+		// 		$("#warning").text("Alarm Created!"); 
 
 		//     });
 		
 
 
 	}
-			
-	
-	
-
-	
 }
 
 
@@ -127,7 +122,7 @@ function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purp
 		if(areParametersCorrect == true)
 			areParametersCorrect = false;
 
-		$("#warningBox").text($("#warningBox").text() + "\n" + "provided url is not a google meet url."); 
+		$("#warning").text($("#warning").text() + "\n" + "provided url is not a google meet url."); 
 		console.log("URL provided is not a google meet url");
 	}
 
@@ -148,7 +143,7 @@ function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purp
 		var minutes = calculateDelay(startTime, date);
 		console.log("minutes: "+ minutes);
 		if(minutes < 1){
-			$("#warningBox").text($("#warningBox").text() + "\n" + "Start Time is Invalid"); 
+			$("#warning").text($("#warning").text() + "\n" + "Start Time is Invalid"); 
 			console.log("Start Time is Invalid");
 
 			return null;
@@ -193,4 +188,3 @@ function calculateDelay(alarmTime, date){
 
 	return minutes;	
 }
-
