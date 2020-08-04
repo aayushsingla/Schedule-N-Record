@@ -52,7 +52,7 @@
 						console.log("result final upload "+ JSON.stringify(result));
 
 						chrome.storage.sync.set(result, function() {
-			    	
+			    		
 					    	console.log('Storage set to' + JSON.stringify(result));
 
 					    });
@@ -84,6 +84,7 @@
 	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	    chrome.pageAction.show(tabId);
 	});
+
 
 
 

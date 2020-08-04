@@ -1,48 +1,44 @@
 {
     "name": "Schedule N Record",
-    "version": "1.0",
+    "version": "0.0.1",
     "description": "Automatically record your lectures/Video Meetings in background by scheduling them earlier.",
     "background": {
       "scripts": 
 	      ["scripts/background.js"],
       "persistent": false
     },
-	"key": "ilgignghhcgebfajnfpikhmjdmmjbbkm",
-
+  
+    "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAih0ZHbZrhJq8zEfCjbkPTcdxguSvOiEIv28E5C7WDg0UhZY/le1CFWQVJR//UU2gvdyoq+aAuPzUSwjY5tS+Fggb1becVjPKaEQUISHxQRlEbc0I0A/7sR/d3D/iIrTcXUhs4KRq6OsI105dX1bMX4f+SzuVtCzoEEJ+37hCqP8OguHIDpfbUJkFo4D7UeFLva23ZGHCmaXTGHem7QHvz/WFoum9A4MAIh/cLSxFS/0n2zgGP2rUJ9ao79ywnfo8jw2iS1TOt7ymEXMQisa0DeyMm4vZQj+rW4W68s/NchNqJit0O3nS4t5JQ3zOT+/1S+GtY48GGNcpAjMU0giXhQIDAQAB",
 
     "permissions": ["activeTab",  "declarativeContent", "storage",  "identity", "alarms"],
 
     "options_page": "ui/options.html",
      
      "oauth2": {
-	    "client_id": "786432158198-di1jldm66c6m2vnavmk8gt1ihoa9m09e.apps.googleusercontent.com",
+	    "client_id": "786432158198-uc61v8el9vc2nain03jukb5m2kckmoch.apps.googleusercontent.com",
 	    "scopes": [
-	      "https://www.googleapis.com/auth/calendar"
+	      "https://www.googleapis.com/auth/calendar.readonly"
 	    ]
   	},
-	"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://apis.google.com/ https://ajax.googleapis.com; object-src 'self'",
 
 
     "page_action": {
       "default_popup": "ui/popup.html", 
-      // Icons for the extension in toolbar
       "default_icon": {
-        "16": "resources/icons/i-16.png",
-        "32": "resources/icons/i-32.png",
-        "48": "resources/icons/i-48.png",
-        "128": "resources/icons/i-128.png"
+        "16": "resources/icons/i_16.png",
+        "32": "resources/icons/i_32.png",
+        "48": "resources/icons/i_48.png",
+        "128": "resources/icons/i_128.png"
       }
     },
-    "web_accessible_resources": [
- 		"resources/fonts/*.*"
-	],
+    "web_accessible_resources": [	],
  
-    // Icons for the extension management page
     "icons": {
-       "16": "resources/icons/i-16.png",
-        "32": "resources/icons/i-32.png",
-        "48": "resources/icons/i-48.png",
-        "128": "resources/icons/i-128.png"
+        "16": "resources/icons/i_16.png",
+        "32": "resources/icons/i_32.png",
+        "48": "resources/icons/i_48.png",
+        "128": "resources/icons/i_128.png"
      },
     "manifest_version": 2
  }

@@ -1,11 +1,9 @@
 
-// chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-//   // Use the token.
-//   console.log(token)
-// });
 var currentPage = "Alarm";
 
 $(document).ready(function(){
+	loadAddAlarmBody();
+	
 	var addAlarmbutton = document.getElementById("addSchedule");
 	addAlarmbutton.addEventListener("click", loadAddAlarmBody);
 	
@@ -18,16 +16,7 @@ $(document).ready(function(){
 	var source = document.getElementById("source");
 	source.addEventListener("click", loadSource);
 
-	document.getElementById('date').valueAsDate = new Date();
 
-	var incrementArrow = document.getElementById("increment");
-	incrementArrow.addEventListener("click", incrementDate);
-	
-	var decrementArrow = document.getElementById("decrement");
-	decrementArrow.addEventListener("click", decrementDate);
-	
-	loadAddAlarmBody();
-	
 	function loadAddAlarmBody(){
 		
 		if(currentPage == "Home"){
@@ -35,7 +24,6 @@ $(document).ready(function(){
 		  		console.log("Add Alarm Loaded");
 		  		loadAddAlarm();
 		  		currentPage = "Alarm";
-				$("#warning").text(""); 
 				$("#addSchedule").removeClass("fa-calendar-plus-o");
 				$("#addSchedule").addClass(" fa-home");
 			});
@@ -47,23 +35,11 @@ $(document).ready(function(){
 				currentPage = "Home";
 		  		$("#addSchedule").removeClass("fa-home");
 		  		$("#addSchedule").addClass(" fa-calendar-plus-o");
-				$("#warning").text("");
 		  	
 			});
 		}
 	}
 
-	function incrementDate(){
-		var date_schedule = $('#date').datepicker().val();
-		date_schedule = new Date(date_schedule);
-		document.getElementById('date').valueAsDate = new  Date(date_schedule.getTime()+1000*60*60*24);
-	}
-
-	function decrementDate(){
-		var date_schedule = $('#date').datepicker().val();
-		date_schedule = new Date(date_schedule);
-		document.getElementById('date').valueAsDate = new  Date(date_schedule.getTime()-1000*60*60*24);
-		}
 
 
 });
@@ -83,6 +59,19 @@ function loadSource(){
 }
 
 
+function showSnackbar(str) {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+  x.innerHTML = str;
 
-  
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+}
+
+
+
+
 

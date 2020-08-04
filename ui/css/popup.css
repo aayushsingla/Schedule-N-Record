@@ -14,7 +14,7 @@
 
 @font-face {
  font-family: 'Helvetica';
- src: url(‘chrome-extension://__MSG_@@extension_id__/resources/fonts/Helvetica.ttf’); 
+ src: url("chrome-extension://__MSG_@@extension_id__/resources/fonts/Helvetica.ttf"); 
 }
 
 html,body {

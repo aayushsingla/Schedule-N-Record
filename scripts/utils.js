@@ -3,7 +3,7 @@ function loadAddAlarm(){
 
 	var addAlarmbutton = document.getElementById("addAlarmButton");
 	addAlarmbutton.addEventListener("click", createCustomAlarm);
-
+	$("#DatePicker").css({"display":"none"});
 	
 	$( "#alarmType" ).change(function() {
 		var selectedItem = $('#alarmType').find(":selected").val();
@@ -23,7 +23,6 @@ function loadAddAlarm(){
 
 function createCustomAlarm(){
 //	var x = document.getElementById("myCheck").checked;
-	$("#warning").text(""); 
 	var startTime=$("#start").val();
 	console.log(startTime);
 	var endTime=$("#end").val();
@@ -47,7 +46,7 @@ function createCustomAlarm(){
 		//setting alarm to start recording 
 
 
-		var jsonobject = getJSONAlarm(name,startTime,endTime,url,destinationFile,date ,type, purpose);
+		var jsonobject = getJSONAlarm(name,startTime,endTime,url,destinationFile,date ,type, purpose,source);
 		if(jsonobject != null){
 			var delayInMinutes = calculateDelay(startTime, date);
 			console.log("minutes delay: "+ delayInMinutes);
@@ -56,13 +55,12 @@ function createCustomAlarm(){
 		    	
 		    	console.log('Storage set to' + JSON.stringify(jsonobject));
 				createAlarm(name, delayInMinutes);
-				$("#warning").text("Alarm Created!"); 
+				showSnackbar("Alarm Created!"); 
 
 		    });
 			
 		} else{
-			
-			$("#warning").text($("#warning").text() + "\n" + "Schedule not created.") 
+			showSnackbar("Schedule not created.") 
 			return;
 		}
 
@@ -111,7 +109,7 @@ function getDaysForAlarm(){
 	return selecteditems;
 }
 
-function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purpose){
+function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purpose, source){
 	var areParametersCorrect = true;  	
 	// var today = new Date();
 	// var hour = today.getHours();
@@ -122,7 +120,7 @@ function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purp
 		if(areParametersCorrect == true)
 			areParametersCorrect = false;
 
-		$("#warning").text($("#warning").text() + "\n" + "provided url is not a google meet url."); 
+		showSnackbar("provided url is not a google meet url."); 
 		console.log("URL provided is not a google meet url");
 	}
 
@@ -143,7 +141,7 @@ function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purp
 		var minutes = calculateDelay(startTime, date);
 		console.log("minutes: "+ minutes);
 		if(minutes < 1){
-			$("#warning").text($("#warning").text() + "\n" + "Start Time is Invalid"); 
+			showSnackbar("Start Time is Invalid"); 
 			console.log("Start Time is Invalid");
 
 			return null;
@@ -161,7 +159,8 @@ function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purp
 				 "type": type,
 				 "date":date,
 				 "delay": minutes,
-				 "purpose": purpose
+				 "purpose": purpose,
+				 "source":source
 				}
 			}
 	} else {
