@@ -8,35 +8,49 @@ var googleProfileUserLoader = (function() {
 
   var state = STATE_START;
 
-  var signin_button, revoke_button;
+  var sign_in_out_button;
 
  function disableButton(button) {
     button.setAttribute('disabled', 'disabled');
-    button.style.display="none";
+    button.classList.remove("fa-sign-in");
+    button.classList.remove("fa-sign-out");
+    button.classList.add("fa-spinner");
+    console.log("button_disabled")
+   
   }
 
   function enableButton(button) {
     button.removeAttribute('disabled');
-    button.style.display="block";
+    button.classList.remove("fa-spinner");
+    isSignedIn(function(bool){
+      if(!  bool){
+        sign_in_out_button.addEventListener('click', interactiveSignIn);  
+        button.classList.add("fa-sign-in");
+      }else{
+        sign_in_out_button.addEventListener('click', revokeToken);  
+        button.classList.add("fa-sign-out");
+      }
+      console.log("button_enabled")
+    });
+
+
+    
   }
 
   function changeState(newState) {
     state = newState;
     switch (state) {
       case STATE_START:
-        enableButton(signin_button);
-        disableButton(revoke_button);
+        enableButton(sign_in_out_button);
         break;
       case STATE_ACQUIRING_AUTHTOKEN:
       	showSnackbar('Please Wait...');
         console.log('Acquiring token...');
-        disableButton(signin_button);
-        disableButton(revoke_button);
+        disableButton(sign_in_out_button);
         break;
       case STATE_AUTHTOKEN_ACQUIRED:
       	showSnackbar('Signed In.');
-        disableButton(signin_button);
-        enableButton(revoke_button);
+        enableButton(sign_in_out_button);
         break;
     }
   }
@@ -96,6 +110,7 @@ var googleProfileUserLoader = (function() {
                    current_token);
           xhr.send();
           // @corecode_end removeAndRevokeAuthToken
+          changeState(STATE_START);
           showSnackbar("Logged Out.");
           // Update the user interface accordingly
           console.log('Token revoked and removed from cache. '+
@@ -106,12 +121,8 @@ var googleProfileUserLoader = (function() {
 
   return {
     onload: function () {
-      signin_button = document.getElementById('authorize_button');
-      signin_button.addEventListener('click', interactiveSignIn);
-
-      revoke_button = document.getElementById('signout_button');
-      revoke_button.addEventListener('click', revokeToken);
-
+      sign_in_out_button = document.getElementById('sign_in_out_button');
+      enableButton(sign_in_out_button);
     }
   };
 

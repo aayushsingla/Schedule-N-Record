@@ -1,21 +1,29 @@
 
-var currentPage = "Alarm";
+var currentPage = "Home";
 
 $(document).ready(function(){
-	loadAddAlarmBody();
-	
+	$("#container").load("./home.html", function(){
+		loadHome();
+	});	
 	var addAlarmbutton = document.getElementById("addSchedule");
+	console.log(addAlarmbutton);
 	addAlarmbutton.addEventListener("click", loadAddAlarmBody);
 	
 	var aayush = document.getElementById("aayush");
+	console.log(aayush);
 	aayush.addEventListener("click", loadAayush);
 	
 	var hardik = document.getElementById("hardik");
+	console.log(hardik);
 	hardik.addEventListener("click", loadHardik);
 	
 	var source = document.getElementById("source");
+	console.log(source);
 	source.addEventListener("click", loadSource);
 
+	var sync = document.getElementById("syncButton");
+	console.log(sync);
+	sync.addEventListener("click", sync_google);
 
 	function loadAddAlarmBody(){
 		
@@ -31,7 +39,7 @@ $(document).ready(function(){
 		}else {
 			$("#container").load("./home.html", function(){
 	  			console.log("Home Loaded");
-	  			loadHome();
+	  			populateHome();
 				currentPage = "Home";
 		  		$("#addSchedule").removeClass("fa-home");
 		  		$("#addSchedule").addClass(" fa-calendar-plus-o");
@@ -39,7 +47,19 @@ $(document).ready(function(){
 			});
 		}
 	}
+	
+	function sync_google(){
+		console.log("Syncing...");
+		isSignedIn(function(bool){
+			if(!bool){
+				showSnackbar("Please Sign In to sync with Google Calendar");
+			}else{
+				showSnackbar("Syncing with your Google Account. Please Wait.");
+				populateHome();
+			}
 
+		});
+	}
 
 
 });
@@ -59,6 +79,8 @@ function loadSource(){
 }
 
 
+
+
 function showSnackbar(str) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
@@ -72,6 +94,19 @@ function showSnackbar(str) {
 }
 
 
+function isSignedIn(callback){
+	chrome.identity.getAuthToken({interactive: false}, function (token) {
+	console.log(token);
+    if (!token) {
+        console.log("not signed in");
+        callback(false);
+    } else {
+        console.log("signed in");
+        callback(true);	
+    }
+    
+});
 
+}
 
 

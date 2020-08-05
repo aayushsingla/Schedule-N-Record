@@ -14,12 +14,20 @@ function loadHome(){
 }
 
 function populateHome(){
+	$("#DatePicker").css({"display":"block"});
 	$("#loaderBox").css({"display":"block"});
 	$("#homeBoxes").css({"display":"none"});
+	
 	var upcoming = [];
 	var ongoing = [];
 	var unscheduled = [];
-	
+	$("#list_ongoing").empty();
+	$("#list_upcoming").empty();
+	$("#list_unscheduled").empty();
+	console.log(upcoming.toString());
+	console.log(ongoing.toString());
+	console.log(unscheduled.toString());
+
 	fetchLists(upcoming,ongoing,unscheduled);
 }
 
@@ -40,12 +48,8 @@ function decrementDate(){
 
 
 function fetchLists(upcoming,ongoing,unscheduled){
-
-	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	var yyyy = today.getFullYear();
-	today = yyyy + '-' + mm + '-' + dd;
+	var date = $('#date').datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
+	console.log("abc",date);
 
 	chrome.storage.sync.get(null, function(object){
 		
@@ -57,9 +61,8 @@ function fetchLists(upcoming,ongoing,unscheduled){
 			var child = object[keys[i]];
 			console.log(child);
 			console.log(child["date"]);
-			console.log(today);
 			
-			if(child["date"] == today){
+			if(child["date"] == date){
 				if(child["source"] == "custom"){
 					console.log(child);
 					if(child["purpose"] == "start"){

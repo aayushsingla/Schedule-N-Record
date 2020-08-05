@@ -43,6 +43,7 @@ html,body {
 
 /*F14475   5781CC*/
 #AppName{
+  margin-right: -30px;
   font-size: 24px;
   font-weight: 800;
   display: inline-block;
@@ -82,24 +83,27 @@ html,body {
   font-size: 21px !important;
 }
 
+.fa:hover{
+  background: #181D2E;
+  opacity: 0.7;
+  letter-spacing: 1px;
+  box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.2s ease 0s;
+}
+
 .fa-refresh{
   padding: 15px;
   float: left;
 }
 
-.fa-calendar-plus-o{
+
+.fa-calendar-plus-o, .fa-home, .fa-sign-in, .fa-sign-out, .fa-spinner{
   padding: 15px;
   float: right;
 }
 
-.fa-home{
-  padding: 10px;
-  float: right;
-}
-
-.fa-google-plus{
-  margin-bottom:15px;
-  margin-left:15px;
+.fa-chevron-right, .fa-chevron-left{
+  padding: 3px;
 }
 
 #Developed{

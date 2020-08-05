@@ -26,7 +26,7 @@ function createCustomAlarm(){
 	var startTime=$("#start").val();
 	console.log(startTime);
 	var endTime=$("#end").val();
-	console.log(startTime);
+	console.log(endTime);
 	var url=$("#url").val();
 	console.log(url);
 	var destinationFile = $("#destination").val();
