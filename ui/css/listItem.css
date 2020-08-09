@@ -27,22 +27,28 @@
 }
 
 
-#statusDiv, #sourceDiv, #durationDiv,#urlDiv{
+#descDiv, #sourceDiv, #durationDiv,#urlDiv{
 	text-align: left;
 	position: relative;
 	width: 100%;
 	height: 18px;
 }
 
+#descDiv{
+  margin-top: 5px !important;
+}
 
-#statusDiv > * , #sourceDiv > *,#durationDiv > *,#urlDiv > *{
+
+#descDiv > * , #sourceDiv > *,#durationDiv > *,#urlDiv > *{
 	font-size: 12px !important;
 	color: white !important;
-  margin: 1px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-left: 1px !important;
   white-space: nowrap;
   max-width: 140px;
   overflow: hidden;
-  text-overflow: ellipsis;  
+  text-overflow: ellipsis;    
 
 }
 

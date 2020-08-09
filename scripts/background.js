@@ -12,10 +12,17 @@
 
 	  	var alarmName = alarm["name"];
 	  	console.log(alarmName);
-		chrome.storage.sync.get([alarmName], function(result) {
-			console.log('Storage retreived' + result);
+		chrome.storage.sync.get(null, function(data) {
+			console.log('Storage retreived' + data);
 			
-			result = result[alarmName];
+			var keys = Object.keys(data);
+			for(var i =0; i < keys.length;i++){
+				if(data[keys[i]][alarmName] != null){
+					result = data[keys[i]][alarmName];
+					break;
+				}
+			}
+
 			console.log(result["url"]);
 
 			var type = result["type"];
@@ -25,13 +32,13 @@
 			console.log("purpose "+purpose);
 
 			var endTime = result["endTime"];
-			console.log("endTime "+endTime);
+			console.log("endTime "+endTime);	
 			
-			
+			var date = result["date"];
+
 			if(purpose == "start"){
 				
 				if(type == "once"){
-					var date = result["date"];
 					console.log("date "+date);
 
 					var createProperties = {
@@ -48,16 +55,16 @@
 						result["purpose"] = "stop";
 						result["delay"] = minutesDelay;
 						result["tabId"] = tabId;
-						result = {[alarmName]: result};
-						console.log("result final upload "+ JSON.stringify(result));
+						data[date][alarmName] = result;
+						console.log("result final upload "+ JSON.stringify(data));
 
-						chrome.storage.sync.set(result, function() {
+						chrome.storage.sync.set(data, function() {
 			    		
-					    	console.log('Storage set to' + JSON.stringify(result));
+					    	console.log('Storage set to' + JSON.stringify(data));
 
 					    });
 
-					})
+					});
 				}
 			
 
@@ -66,8 +73,9 @@
 				chrome.tabs.remove(tabId, function(){
 					console.log("Tab Removed!!!");
 				});
-
-				chrome.storage.sync.remove([alarmName],function(){
+				delete data[date][alarmName];
+				chrome.storage.sync.set(data ,function(){
+					console.log("data after alarm removal",data)
 					console.log("Alarm Removed");
 				});
 			}

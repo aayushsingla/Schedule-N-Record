@@ -1,0 +1,22 @@
+#mainDiv{
+	width: 100%;
+	height: 100%;
+	text-align: left;
+}
+
+#mainDiv > *{
+	display: inline-block;
+	margin-top: 5px;
+	margin-left:10px;  
+}
+
+#heading{
+	margin-top: 10px;
+	margin-left: 20%;
+	padding:10px;
+}
+#addAlarmButton{
+	margin-top: 20px;
+	margin-left: 36%;
+	padding:10px;
+}

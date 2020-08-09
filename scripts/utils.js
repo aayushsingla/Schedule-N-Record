@@ -2,6 +2,7 @@
 function loadAddAlarm(){
 
 	var addAlarmbutton = document.getElementById("addAlarmButton");
+	console.log(addAlarmbutton, "button set");
 	addAlarmbutton.addEventListener("click", createCustomAlarm);
 	$("#DatePicker").css({"display":"none"});
 	
@@ -29,8 +30,8 @@ function createCustomAlarm(){
 	console.log(endTime);
 	var url=$("#url").val();
 	console.log(url);
-	var destinationFile = $("#destination").val();
-	console.log(destinationFile);
+	var description = $("#description").val();
+	console.log(description);
 
 	var type = $('#alarmType').find(":selected").val();
 	console.log(type);
@@ -46,19 +47,31 @@ function createCustomAlarm(){
 		//setting alarm to start recording 
 
 
-		var jsonobject = getJSONAlarm(name,startTime,endTime,url,destinationFile,date ,type, purpose,source);
+		var jsonobject = getJSONAlarm(name,startTime,endTime,url,description,date ,type, purpose,source);
 		if(jsonobject != null){
 			var delayInMinutes = calculateDelay(startTime, date);
 			console.log("minutes delay: "+ delayInMinutes);
+			console.log(jsonobject);
+				chrome.storage.sync.get(null, function(obj){
+					console.log(($.isEmptyObject(obj)));
+					if($.isEmptyObject(obj)){
+						obj= {};
+						obj[date]= {}
+					}
 
-		 	chrome.storage.sync.set(jsonobject, function() {
-		    	
-		    	console.log('Storage set to' + JSON.stringify(jsonobject));
-				createAlarm(name, delayInMinutes);
-				showSnackbar("Alarm Created!"); 
+					obj[date][name] = jsonobject;
+				 	chrome.storage.sync.set(obj, function() {
+				    	/*[TODO] prevent data overriding using set method
+				    			 also prevent modifying already set values completely
+				    			 instead compare scheduled, purpoe fields
+				    	*/
+				    	console.log('Storage set to' + JSON.stringify(obj));
+						createAlarm(name, delayInMinutes);
+						showSnackbar("Alarm Created!"); 
 
-		    });
-			
+			    });
+				
+			});
 		} else{
 			showSnackbar("Schedule not created.") 
 			return;
@@ -109,7 +122,8 @@ function getDaysForAlarm(){
 	return selecteditems;
 }
 
-function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purpose, source){
+function getJSONAlarm(name,startTime,endTime,url,description, date,type,purpose, source){
+	name = name.toString();
 	var areParametersCorrect = true;  	
 	// var today = new Date();
 	// var hour = today.getHours();
@@ -149,20 +163,20 @@ function getJSONAlarm(name,startTime,endTime,url,destinationFile, date,type,purp
 	}
 
 	if(areParametersCorrect){
-		obj = {    
-			[name]:{
+		obj = {
 				"name":name,
 				"startTime": startTime,
 				 "endTime":endTime,
 				 "url":url,
-				 "destinationFile": destinationFile,
+				 "description": description,
 				 "type": type,
 				 "date":date,
 				 "delay": minutes,
 				 "purpose": purpose,
-				 "source":source
+				 "source":source,
+				 "scheduled": true
+			
 				}
-			}
 	} else {
 		obj = null;
 	}

@@ -1,23 +1,30 @@
  <!DOCTYPE html>
   <html>
     <head>
-
+        <link rel="stylesheet" href="./css/addAlarm.css"> </style> 
     </head>
     <body>
       <div id = "mainDiv">
 
-        <p>Add an alarm</p>
+        <p id = "heading"> Add an alarm</p>
+        <br/>
+        <label for="description">Description: </label>
+        <input type="text" id="description" name="escription">
+        <br/>
 
-        <label for="url">url:</label>
+        <label for="url">url: </label>
         <input type="url" id="url" name="url">
         <br/>
         
-        <label for="start">Start time:</label>
+        <label for="start">Start time: </label>
 
         <input type="time" id="start" name="record-start">
-        <label for="end">End Time:</label>
+
+        <br/>
+        <label for="end">End Time: </label>
 
         <input type="time" id="end" name="record-end">
+        <br/>
 
         <label for="alarmType">Select type</label>
 
@@ -25,6 +32,7 @@
           <option value="once" selected="selected">Schedule Once</option>
           <option value="weekly">Schedule Weekly</option>
         </select>
+        <br/>
 
         <div id="AddAlarmDatePicker">
 
@@ -53,12 +61,7 @@
           </tr>
         
       </table>
-
-
-      <label for="destination">File Destination: "Schedule-N-write/"</label>
-        <input type="text" id="destination" name="destination">
-        <br/>
-
+      <br/>
 
       <button class="btn btn-light" id="addAlarmButton">Set Alarm</button>
       </div>

@@ -43,7 +43,6 @@ html,body {
 
 /*F14475   5781CC*/
 #AppName{
-  margin-right: -30px;
   font-size: 24px;
   font-weight: 800;
   display: inline-block;
@@ -91,13 +90,13 @@ html,body {
   transition: all 0.2s ease 0s;
 }
 
-.fa-refresh{
+.fa-refresh, .fa-sign-in, .fa-sign-out, .fa-spinner{
   padding: 15px;
   float: left;
 }
 
 
-.fa-calendar-plus-o, .fa-home, .fa-sign-in, .fa-sign-out, .fa-spinner{
+.fa-calendar-plus-o, .fa-home, .fa-info{
   padding: 15px;
   float: right;
 }

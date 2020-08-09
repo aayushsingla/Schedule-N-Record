@@ -23,7 +23,7 @@ var googleProfileUserLoader = (function() {
     button.removeAttribute('disabled');
     button.classList.remove("fa-spinner");
     isSignedIn(function(bool){
-      if(!  bool){
+      if(!bool){
         sign_in_out_button.addEventListener('click', interactiveSignIn);  
         button.classList.add("fa-sign-in");
       }else{
@@ -32,9 +32,6 @@ var googleProfileUserLoader = (function() {
       }
       console.log("button_enabled")
     });
-
-
-    
   }
 
   function changeState(newState) {
@@ -79,6 +76,7 @@ var googleProfileUserLoader = (function() {
     // will be opened when the user is not yet authenticated or not.
     // @see http://developer.chrome.com/apps/app_identity.html
     // @see http://developer.chrome.com/apps/identity.html#method-getAuthToken
+    console.log("starting interactive signin");
     chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
       if (chrome.runtime.lastError) {
         console.log(chrome.runtime.lastError);
@@ -87,9 +85,9 @@ var googleProfileUserLoader = (function() {
         console.log('Token acquired:'+token+
           '. See chrome://identity-internals for details.');
         changeState(STATE_AUTHTOKEN_ACQUIRED);
+        sync_calendar();
       }
     });
-    // @corecode_end getAuthToken
   }
 
   function revokeToken() {

@@ -25,6 +25,7 @@ $(document).ready(function(){
 	console.log(sync);
 	sync.addEventListener("click", sync_google);
 
+
 	function loadAddAlarmBody(){
 		
 		if(currentPage == "Home"){
@@ -95,18 +96,27 @@ function showSnackbar(str) {
 
 
 function isSignedIn(callback){
+	console.log("about to start");
 	chrome.identity.getAuthToken({interactive: false}, function (token) {
-	console.log(token);
-    if (!token) {
-        console.log("not signed in");
-        callback(false);
-    } else {
-        console.log("signed in");
-        callback(true);	
-    }
+		console.log(token);
+	    if (!token) {
+	        console.log("not signed in");
+	        callback(false);
+	    } else {
+	        console.log("signed in");
+	        callback(true);	
+	    }
     
-});
-
+	});
 }
+
+
+function getUserEmail(){
+	chrome.identity.getProfileUserInfo(function(object){
+		console.log(object.email);
+
+	});	
+}
+
 
 
