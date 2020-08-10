@@ -3,16 +3,19 @@
     "version": "0.0.1",
     "description": "Automatically record your lectures/Video Meetings in background by scheduling them earlier.",
     "background": {
-      "scripts": 
-	      ["scripts/background.js"],
-      "persistent": false
-    },
+      "page": "ui/background.html"
+      },
+
+     "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+       "js": ["scripts/content.js"]
+    }
+   ],
   
     "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAih0ZHbZrhJq8zEfCjbkPTcdxguSvOiEIv28E5C7WDg0UhZY/le1CFWQVJR//UU2gvdyoq+aAuPzUSwjY5tS+Fggb1becVjPKaEQUISHxQRlEbc0I0A/7sR/d3D/iIrTcXUhs4KRq6OsI105dX1bMX4f+SzuVtCzoEEJ+37hCqP8OguHIDpfbUJkFo4D7UeFLva23ZGHCmaXTGHem7QHvz/WFoum9A4MAIh/cLSxFS/0n2zgGP2rUJ9ao79ywnfo8jw2iS1TOt7ymEXMQisa0DeyMm4vZQj+rW4W68s/NchNqJit0O3nS4t5JQ3zOT+/1S+GtY48GGNcpAjMU0giXhQIDAQAB",
 
-    "permissions": ["activeTab",  "declarativeContent", "storage",  "identity", "identity.email", "alarms"],
-
-    "options_page": "ui/options.html",
+    "permissions": [ "tabs", "tabCapture" ,"<all_urls>", "storage",  "identity", "identity.email", "alarms"],
      
      "oauth2": {
 	    "client_id": "786432158198-uc61v8el9vc2nain03jukb5m2kckmoch.apps.googleusercontent.com",
@@ -21,10 +24,11 @@
         "https://www.googleapis.com/auth/userinfo.email"
 	    ]
   	},
-  "content_security_policy": "script-src 'self' https://apis.google.com/ https://ajax.googleapis.com; object-src 'self'",
+
+  "content_security_policy": "script-src 'self' https://apis.google.com/ https://ajax.googleapis.com 'unsafe-eval'; object-src 'self'",
 
 
-    "page_action": {
+    "browser_action": {
       "default_popup": "ui/popup.html", 
       "default_icon": {
         "16": "resources/icons/i_16.png",

@@ -1,10 +1,11 @@
-
 var currentPage = "Home";
 
 $(document).ready(function(){
 	$("#container").load("./home.html", function(){
 		loadHome();
 	});	
+
+
 	var addAlarmbutton = document.getElementById("addSchedule");
 	console.log(addAlarmbutton);
 	addAlarmbutton.addEventListener("click", loadAddAlarmBody);
@@ -114,7 +115,7 @@ function isSignedIn(callback){
 function getUserEmail(){
 	chrome.identity.getProfileUserInfo(function(object){
 		console.log(object.email);
-
+		return object.email;
 	});	
 }
 

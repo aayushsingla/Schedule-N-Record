@@ -1,3 +1,5 @@
+	"use strict";
+	import * as puppeteer from "../scripts/puppeteer.js"
 	/*
 	* object alarm:
 	*	type   property-name 
@@ -7,6 +9,7 @@
 	*	double periodInMinutes  If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.
 	*/
 
+
 	chrome.alarms.onAlarm.addListener(function( alarm ) {
 	  	console.log("Got an alarm!", alarm);
 
@@ -14,7 +17,7 @@
 	  	console.log(alarmName);
 		chrome.storage.sync.get(null, function(data) {
 			console.log('Storage retreived' + data);
-			
+			var result;
 			var keys = Object.keys(data);
 			for(var i =0; i < keys.length;i++){
 				if(data[keys[i]][alarmName] != null){
@@ -61,7 +64,32 @@
 						chrome.storage.sync.set(data, function() {
 			    		
 					    	console.log('Storage set to' + JSON.stringify(data));
+					    	setTimeout(function(){ 
+						  		var constraints = {
+						            audio: true,
+						            video: true,
+						            videoConstraints: {
+						                mandatory: {
+						                    chromeMediaSource: 'tab',
+						                    maxWidth: 3840,
+						                    maxHeight: 2160
+						                }
+						            },audioConstraints:  {
+						               mandatory: {
+						                    echoCancellation: true
+						                }
+						            }	
+					        	};
 
+					        	chrome.tabs.executeScript(tabId,
+								{code:"var x =document.getElementsByClassName('Ce1Y1c');if(!(x.length == 0)){x[0].click();}"
+								 + "var x =document.getElementsByClassName('l4V7wb Fxmcue');x[0].click();"});
+					    	
+
+								 startRecording();
+					    	}, 10000);
+					    
+					    		
 					    });
 
 					});
@@ -70,13 +98,14 @@
 
 			}else if(purpose == "stop"){
 				var tabId = result["tabId"];
+				data[date]["purpose"] = "start";
+                chrome.storage.sync.set(data ,function(){
+                       console.log("data after alarm removal",data)
+                       console.log("Alarm Removed");
+                 });
+
 				chrome.tabs.remove(tabId, function(){
 					console.log("Tab Removed!!!");
-				});
-				delete data[date][alarmName];
-				chrome.storage.sync.set(data ,function(){
-					console.log("data after alarm removal",data)
-					console.log("Alarm Removed");
 				});
 			}
 		});
@@ -89,9 +118,6 @@
 
 	//called when extnsion is fully loaded in browser
 
-	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-	    chrome.pageAction.show(tabId);
-	});
 
 
 
@@ -102,7 +128,29 @@
 	<TODO:>
 	Don't forget to cancel all alarms when storage is cleared or extension is uninstalled
 */
+async function startRecording() {
+	  // const browserURL = 'http://127.0.0.1:21222';
+	  // const browser = await puppeteer.connect({browserURL});
+	  // const extBackgroundTarget = await puppeteer.Browser.waitForTarget(t => t.type() === 'background_page')
+	  // const extBackgroundPage = await extBackgroundTarget.page()
 
+	  // // load a page from which to click browser action, make it the active tab
+	  // const someOtherPage = await browser.newPage()
+	  // await someOtherPage.goto('https://aayushsingla.github.io')
+	  // await someOtherPage.bringToFront()
+
+	  // // evaluate chrome object in context of background page:
+	  // await extBackgroundPage.evaluate(() => {
+	  //   chrome.tabs.query({ active: true }, tabs => {
+	  //     chrome.browserAction.onClicked.dispatch(tabs[0]);
+	  //   })
+	  // })
+	// console.log("started capturing");	
+	// 			chrome.tabCapture.capture(constraints, function(stream){
+	// 				console.log("capturing finished");
+	//  	        		gotTabCaptureStream(stream, constraints);
+	//  		});/ body...
+	}
 
 function calculateDelay(alarmTime, date){
 
@@ -120,3 +168,36 @@ function calculateDelay(alarmTime, date){
 
 	return minutes;	
 }
+
+
+function gotTabCaptureStream(stream, constraints) {
+    if (!stream) {
+        chrome.runtime.reload();
+        return;
+    }
+
+    var newStream = new MediaStream();
+    stream.getTracks().forEach(function(track) {
+        newStream.addTrack(track);
+    });
+
+    playCapturedStream(stream);
+    // saveVideoStream(newStream);
+
+    // gotStream(newStream);
+}
+
+
+function initVideoPlayer(stream) {
+    var videoPlayer = document.createElement('video');
+    videoPlayer.muted = !enableTabCaptureAPI;
+    videoPlayer.volume = !!enableTabCaptureAPI;
+    videoPlayer.srcObject = stream;
+
+    videoPlayers.push(videoPlayer);
+};
+
+function saveVideoStream(stream){
+
+};
+

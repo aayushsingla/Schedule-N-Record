@@ -64,7 +64,7 @@ function fetchLists(){
 			console.log(JSON.stringify(object));
 			object = object[date];
 			console.log(object);
-			if(!(object == undefined || object == true)){
+			if(!(object == undefined || object == null)){
 				var keys = Object.keys(object);
 				console.log(keys.length);
 				for(var i=0; i < keys.length;i++){

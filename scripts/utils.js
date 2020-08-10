@@ -54,9 +54,11 @@ function createCustomAlarm(){
 			console.log(jsonobject);
 				chrome.storage.sync.get(null, function(obj){
 					console.log(($.isEmptyObject(obj)));
-					if($.isEmptyObject(obj)){
+					if((obj == undefined || obj == null)){
 						obj= {};
-						obj[date]= {}
+					}
+					if((obj[date] == undefined || obj[date] == null)){
+						obj[date]= {};
 					}
 
 					obj[date][name] = jsonobject;
@@ -161,6 +163,7 @@ function getJSONAlarm(name,startTime,endTime,url,description, date,type,purpose,
 			return null;
 		}
 	}
+	var email = getUserEmail();
 
 	if(areParametersCorrect){
 		obj = {
