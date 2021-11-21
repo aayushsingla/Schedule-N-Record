@@ -1,4 +1,4 @@
-# Schedule-N-Record
+## Schedule-N-Record
 Schedule-N-Record is a google chrome extension which lets you automatically record your Video Meetings/Lectures in background by scheduling them earlier.you may add your classes manually or directly sync google meet with your google calendar. Some screenshots of extension in action:\
 ![image](https://drive.google.com/uc?export=view&id=1axrqkVIWpoI_hu_E9xcrw5jn9UJvemCZ)
 ![image](https://drive.google.com/uc?export=view&id=1TWcVjN4p6FMOM2lk1vHPD8teYQQDKSxf)\
